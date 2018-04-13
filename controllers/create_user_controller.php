@@ -2,6 +2,8 @@
 	$pageTitle = "Create New User";
 	include('function.php');
 	include(loadHeader());
+	#include($_SERVER['DOCUMENT_ROOT'] . '/aurum/js/number-format.js');
+
 	$accID = $_SESSION['accID'];
 	#for new accounts, default username: firstname.lastname
 	#for new accounts, default password: change.lastname

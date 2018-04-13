@@ -38,6 +38,13 @@
 
 				if($accountStatus === 'Active')
 				{
+					$txtEvent = "User with ID # " . $accID . " logged in.";
+					$logEvent = base64_encode(openssl_encrypt($txtEvent, $method, $password, OPENSSL_RAW_DATA, $iv));
+					$sql_insert = "INSERT INTO logs (logAccount, logDate, logEvent)
+								   VALUES (?, CURRENT_TIMESTAMP, ?)";
+					$params_insert = array($accID, $logEvent);
+					$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+
 					header('location: index.php');
 				}
 				else if($accountStatus === 'Pending')

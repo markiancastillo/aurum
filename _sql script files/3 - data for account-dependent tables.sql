@@ -15,8 +15,10 @@ INSERT INTO addresses (addressL1, addressL2, addressCity, addressZip, accountID)
 VALUES ('5uOM93Pkmel62k2FUWkqSpIsCenaD5G12dTC7veIXhs=', 'n6RHVJVfFATh9PsZjyzW+w==', 'f+HtRZIY1M3H2MroDcmxXw==', '1776', 1);
 
 /* populate the cases table */
+/* INSERT INTO cases (caseTitle, caseDescription, caseStartDate, caseEndDate, caseRemarks, caseStatus, accountID, clientID) 
+VALUES ('Theft case against Jean Valjean', '', '2018-03-15', '2018-05-15', '', 'Active', 1, 5); */
 INSERT INTO cases (caseTitle, caseDescription, caseStartDate, caseEndDate, caseRemarks, caseStatus, accountID, clientID) 
-VALUES ('Theft case against Jean Valjean', '', '2018-03-15', '2018-05-15', '', 'Active', 1, 5);
+VALUES ('Theft case against Jean Valjean', '', '2018-03-15', '2018-05-15', '', 'Active', 1, 2);
 INSERT INTO cases (caseTitle, caseDescription, caseStartDate, caseEndDate, caseRemarks, caseStatus, accountID, clientID) 
 VALUES ('Sample Case 001', '', '2018-02-21', '2018-04-11', '', 'Active', 2, 1);
 

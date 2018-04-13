@@ -33,6 +33,18 @@ include('controllers/forgot_password_controller.php');
                         <h2>Reyes Francisco Tecson Sabado<br>and Associates</h2>
                         <br><br><br>
                         <span class="input input--hoshi">
+                            <input class="input__field input__field--hoshi" type="text" id="username" name="username" maxlength="100" style="display: none" />
+                            <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="name">
+                                <span class="input__label-content input__label-content--hoshi">Username</span>
+                            </label>
+                        </span>
+                        <span class="input input--hoshi">
+                            <input class="input__field input__field--hoshi" type="password" id="password" name="password" maxlength="100" style="display: none" />
+                            <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="email">
+                                <span class="input__label-content input__label-content--hoshi">Password</span>
+                            </label>
+                        </span>
+                        <span class="input input--hoshi">
                             <input class="input__field input__field--hoshi" type="text" id="inpUsername" name="inpUsername" maxlength="100" />
                             <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="name">
                                 <span class="input__label-content input__label-content--hoshi">Username</span>

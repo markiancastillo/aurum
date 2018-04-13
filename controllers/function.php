@@ -761,11 +761,15 @@
 	}
 
 	function logEvent($con, $accID, $txtEvent)
-	{
+	{	
+		include('security.php');
+
+		$logEvent = base64_encode(openssl_encrypt($txtEvent, $method, $password, OPENSSL_RAW_DATA, $iv));
+
 		$sql_log = "INSERT INTO logs(logAccount, logEvent, logDate) 
 					VALUES (?, ?, CURRENT_TIMESTAMP)";
 		#$timestamp = date('Y-m-d H:i:s');
-		$params_log = array($accID, $txtEvent);
+		$params_log = array($accID, $logEvent);
 		$stmt_log = sqlsrv_query($con, $sql_log, $params_log);
 	}
 ?>

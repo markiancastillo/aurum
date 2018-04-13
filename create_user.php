@@ -4,6 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="lib/maskedinput/lib/jquery-1.9.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/maskedinput/src/jquery.maskedinput.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+    $(function() {
+        $.mask.definitions['~'] = "[+-]";
+        $("#inpSSS").mask("99-9999999-9", {placeholder:" "});
+        $("#inpTIN").mask("999-999-999-999", {placeholder:" "});
+        $("#inpHDMF").mask("9999-9999-9999", {placeholder:" "});
+    });
+</script>
 </head>
 <body>
 <section id="main-content">
@@ -81,19 +92,19 @@
 								<div class="form-group">
 									<label class="control-label col-lg-3">SSS Number</label>
 									<div class="col-lg-8">
-										<input type="text" id="inpSSS" name="inpSSS" class="form-control" maxlength="25" required="true" />
+										<input type="text" id="inpSSS" name="inpSSS" class="form-control" maxlength="25" placeholder="e.g. 12-1234567-0" required="true" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-lg-3">TIN</label>
 									<div class="col-lg-8">
-										<input type="text" id="inpTIN" name="inpTIN" class="form-control" maxlength="25" required="true" />
+										<input type="text" id="inpTIN" name="inpTIN" class="form-control" maxlength="25" placeholder="e.g. 123-345-567-789" required="true" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-lg-3">HDMF Number</label>
 									<div class="col-lg-8">
-										<input type="text" id="inpHDMF" name="inpHDMF" class="form-control" maxlength="25" required="true" />
+										<input type="text" id="inpHDMF" name="inpHDMF" class="form-control" maxlength="25" placeholder="e.g. 1234-4567-7890" required="true" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -108,7 +119,7 @@
 								<div class="form-group">
 									<label class="control-label col-lg-3">Base Rate</label>
 									<div class="col-lg-8">
-										<input type="number" id="inpBaseRate" name="inpBaseRate" class="form-control" min=1 step=".01" required="true" />
+										<input type="number" id="inpBaseRate" name="inpBaseRate" class="form-control" min=1 step=".01" value="1" required="true" />
 									</div>
 								</div>	
 							</div>
@@ -126,5 +137,7 @@
 		</div>
 	</section>
 </section>
+
+<script type="text/javascript" src="../js/number-format.js"></script>
 </body>
 </html>
