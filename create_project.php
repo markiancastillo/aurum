@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5iyso3f5zg58ld5wqj8dw0ctl2a13x98zgwx1urb7hgtc415"></script> 
-  	<script>tinymce.init({ selector:'textarea' });</script>
+	<!--<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5iyso3f5zg58ld5wqj8dw0ctl2a13x98zgwx1urb7hgtc415"></script> 
+  	<script>tinymce.init({ selector:'textarea' });</script>-->
 </head>
 <body>
 <section id="main-content">

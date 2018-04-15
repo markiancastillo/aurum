@@ -65,19 +65,19 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3">First Name</label>
 								<div class="col-lg-8">
-									<input type="text" id="inpFN" name="inpFN" class="form-control" maxlength="50" value='<?php echo $accountFN; ?>' required="true" />
+									<input type="text" id="inpFN" name="inpFN" class="form-control" maxlength="50" value='<?php echo $accountFN; ?>' required="true" disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3">Middle Name</label>
 								<div class="col-lg-8">
-									<input type="text" id="inpMN" name="inpMN" class="form-control" maxlength="50" value='<?php echo $accountMN; ?>' placeholder="optional" />
+									<input type="text" id="inpMN" name="inpMN" class="form-control" maxlength="50" value='<?php echo $accountMN; ?>' placeholder="optional" disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3">Last Name</label>
 								<div class="col-lg-8">
-									<input type="text" id="inpLN" name="inpLN" class="form-control" maxlength="50" value='<?php echo $accountLN; ?>' required="true" />
+									<input type="text" id="inpLN" name="inpLN" class="form-control" maxlength="50" value='<?php echo $accountLN; ?>' required="true" disabled="true" />
 								</div>
 							</div>
 						</div>
@@ -85,7 +85,7 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3">Username</label>
 								<div class="col-lg-8">
-									<input type="text" id="inpUN" name="inpUN" class="form-control" minlength="6" maxlength="50" placeholder='<?php echo $accountUsername; ?>' />
+									<input type="text" id="inpUN" name="inpUN" class="form-control" minlength="6" maxlength="50" placeholder='<?php echo $accountUsername; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -98,13 +98,13 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3">Birth Date</label>
 								<div class="col-lg-8">
-									<input type="date" id="inpBDay" name="inpBDay" class="form-control" max="2017-01-01" value='<?php echo $accountBirthdate; ?>' />
+									<input type="date" id="inpBDay" name="inpBDay" class="form-control" max="2017-01-01" value='<?php echo $accountBirthdate; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3">Sex</label>
 								<div class="col-lg-8">
-									<select id="inpSex" name="inpSex" class="form-control">
+									<select id="inpSex" name="inpSex" class="form-control" disabled="true">
 										<option value="M" <?php echo $selectedM; ?>>Male</option>
 										<option value="F" <?php echo $selectedF; ?>>Female</option>
 									</select>
@@ -135,14 +135,14 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3">Email Address</label>
 								<div class="col-lg-8">
-									<input type="email" id="inpEmail" name="inpEmail" class="form-control" maxlength="100" placeholder='<?php echo $accountEmail; ?>' />
+									<input type="email" id="inpEmail" name="inpEmail" class="form-control" maxlength="100" placeholder='<?php echo $accountEmail; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3">Primary Contact Number</label>
 								<div class="col-lg-8">
 									<div class="input-group">
-										<input type="text" id="inpNumber" name="inpNumber" class="form-control" maxlength="25" placeholder="Set a primary contact number" value='<?php echo $contactNumber; ?>' />
+										<input type="text" id="inpNumber" name="inpNumber" class="form-control" maxlength="25" placeholder="Set a primary contact number" value='<?php echo $contactNumber; ?>' disabled="true" />
 										<div class="input-group-btn">
 											<a href="account_number.php" class="btn btn-default">Manage</a>
 										</div>
@@ -154,30 +154,30 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3">Address</label>
 								<div class="col-lg-8">
-									<input type="text" id="inpAddressL1" name="inpAddressL1" class="form-control" maxlength="80" placeholder="Address Line 1" value='<?php echo $addressL1; ?>' />
+									<input type="text" id="inpAddressL1" name="inpAddressL1" class="form-control" maxlength="80" placeholder="Address Line 1" value='<?php echo $addressL1; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3"></label>
 								<div class="col-lg-8">
-									<input type="text" id="inpAddressL2" name="inpAddressL2" class="form-control" maxlength="80" placeholder="Address Line 2" value='<?php echo $addressL2; ?>' />
+									<input type="text" id="inpAddressL2" name="inpAddressL2" class="form-control" maxlength="80" placeholder="Address Line 2" value='<?php echo $addressL2; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3"></label>
 								<div class="col-lg-8">
-									<input type="text" id="inpCity" name="inpCity" class="form-control" maxlength="30" placeholder="City" value='<?php echo $addressCity; ?>' />
+									<input type="text" id="inpCity" name="inpCity" class="form-control" maxlength="30" placeholder="City" value='<?php echo $addressCity; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-lg-3"></label>
 								<div class="col-lg-8">
-									<input type="text" id="inpZip" name="inpZip" class="form-control" maxlength="15" placeholder="Zip/Area Code" value='<?php echo $addressZip; ?>' />
+									<input type="text" id="inpZip" name="inpZip" class="form-control" maxlength="15" placeholder="Zip/Area Code" value='<?php echo $addressZip; ?>' disabled="true" />
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-lg-8 col-lg-offset-3">
-									<a href="account_address.php" class="btn btn-default btn-block">Manage Address</a>
+									<a href="account_address.php" class="btn btn-default btn-block" style="display: none">Manage Address</a>
 								</div>
 							</div>
 						</div>
@@ -226,7 +226,7 @@
 				<div class="col-lg-6 col-lg-offset-6">
 					<div class="form-group">
 						<div class="col-lg-4 col-lg-offset-7">
-							<button type="submit" id="btnUpdate" name="btnUpdate" class="btn btn-primary btn-block pull-right">Save Changes</button>
+							<button type="submit" id="btnSave" name="btnSave" class="btn btn-primary btn-block pull-right">Save Changes</button>
 						</div>
 					</div>
 				</div>	

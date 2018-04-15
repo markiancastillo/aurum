@@ -126,7 +126,7 @@
                             <span>Projects</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="<?php echo app_path?>create_project.php">Cases</a></li>
+                            <li><a href="<?php echo app_path?>create_project.php">Create Project</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li" <?php echo $displayAttendance; ?>>
@@ -142,6 +142,12 @@
                             <li><a href="requestto_admin.php">Leave Requests</a></li>
                             <li class="divider">__________________</li>
                             <li><a href="list_requestleave.php">Your Requests</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;" ><i class="fa fa-clipboard"></i><span>Audit Logs</span></a>
+                        <ul class="sub">
+                            <li><a href="list_audit.php">View Activity Log</a></li>
                         </ul>
                     </li>
                 </ul>

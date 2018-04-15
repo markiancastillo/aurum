@@ -15,7 +15,9 @@
 	$params_details = array($rID, $cID);
 	$stmt_details = sqlsrv_query($con, $sql_details, $params_details);
 
-	$sql_account = "SELECT accountFN, accountMN, accountLN, accountEmail FROM accounts WHERE accountID = ?";
+	$sql_account = "SELECT accountFN, accountMN, accountLN, accountEmail, d.departmentName FROM accounts a
+					INNER JOIN departments d ON a.departmentID = d.departmentID
+					WHERE a.accountID = ?";
 	$params_account = array($rID);
 	$stmt_account = sqlsrv_query($con, $sql_account, $params_account);
 
@@ -55,8 +57,10 @@
 		$accountLN = openssl_decrypt(base64_decode($row['accountLN']), $method, $password, OPENSSL_RAW_DATA, $iv);
 		$accountEmail = openssl_decrypt(base64_decode($row['accountEmail']), $method, $password, OPENSSL_RAW_DATA, $iv);
 		$accountName = $accountLN . ', ' . $accountFN . ' ' . $accountMN;
+		$departmentName = $row['departmentName'];
 
 		$pdf->Cell(0, 5, 'Account: ' . $accountName, 0, 1, 'L');
+		$pdf->Cell(0, 5, 'Department: ' . $departmentName, 0, 1, 'L');
 	}
 
 	while($row = sqlsrv_fetch_array($stmt_cases))

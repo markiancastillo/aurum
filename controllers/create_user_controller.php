@@ -61,6 +61,10 @@
 						<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 						Email address already exists. Please input a valid email address.
 					</div>";
+		$errBday = "<div class='alert alert-danger alert-dismissable fade in'>
+						<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						Please check the birth date input. User must be at least 18 years of age.
+					</div>";
 	
 		if(isset($_POST['btnSubmit']))
 		{
@@ -89,25 +93,60 @@
 	
 			$sql_insert = "INSERT INTO accounts (accountUsername, accountPassword, accountFN, accountMN, accountLN, accountBirthDate, accountSex, accountSSSNo, accountTINNo, accountHDMFNo, accountEmail, accountBaseRate, accountStatus, cstatusID, positionID, departmentID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$params_insert = array($defUsername, $defPassword, $inpFN, $inpMN, $inpLN, $inpBDay, $inpSex, $inpSSS, $inpTIN, $inpHDMF, $inpEmail, $inpBaseRate, "Active", $inpCivilStatus, $inpPosition, $inpDepartment);
-	
-			if(isset($inpEmail))
+
+			#check if the input birthday is valid
+			$birthDate = new DateTime($inpBDay);
+			$currentDate = new DateTime('today');
+			$userAge = $birthDate->diff($currentDate)->y;
+
+			if($userAge < 18)
 			{
-				#email address field has an input
-				#check to see if it is valid
-	
-				$emailCount = validateEmail($con, $inpEmail);
-				if($emailCount > 0)
+				#display an error
+				#header('location: invalid-bday-ageis-' . $userAge . '.php');
+				$msgDisplay = $errBday;
+			}
+			else
+			{
+				#birth date is valid
+				#proceed to validate the email address
+
+				if(isset($inpEmail))
 				{
-					#input email already exists
-					#do not update; show an error message
-					$msgDisplay = $errEmail;
+					#email address field has an input
+					#check to see if it is valid
+		
+					$emailCount = validateEmail($con, $inpEmail);
+					if($emailCount > 0)
+					{
+						#input email already exists
+						#do not update; show an error message
+						$msgDisplay = $errEmail;
+					}
+					else
+					{
+						#input email is unique
+						#update it in the database
+	
+						$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+		
+						if($stmt_insert === false)
+						{
+							$msgDisplay = $msgError;
+						}
+						else 
+						{
+							$msgDisplay = $msgSuccess;
+							$txtEvent = "User with ID #" . $accID . " created a new account for: " . trim($_POST['inpFN']) . " " . trim($_POST['inpMN']) . " " . trim($_POST['inpLN']) . ".";
+							logEvent($con, $accID, $txtEvent);
+						}
+					}
 				}
-				else
+				else 
 				{
-					#input email is unique
-					#update it in the database
+					#email address field has no input
+					#update in the database
 					$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
-	
+		
 					if($stmt_insert === false)
 					{
 						$msgDisplay = $msgError;
@@ -118,23 +157,6 @@
 						$txtEvent = "User with ID #" . $accID . " created a new account for: " . trim($_POST['inpFN']) . " " . trim($_POST['inpMN']) . " " . trim($_POST['inpLN']) . ".";
 						logEvent($con, $accID, $txtEvent);
 					}
-				}
-			}
-			else 
-			{
-				#email address field has no input
-				#update in the database
-				$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
-	
-				if($stmt_insert === false)
-				{
-					$msgDisplay = $msgError;
-				}
-				else 
-				{
-					$msgDisplay = $msgSuccess;
-					$txtEvent = "User with ID #" . $accID . " created a new account for: " . trim($_POST['inpFN']) . " " . trim($_POST['inpMN']) . " " . trim($_POST['inpLN']) . ".";
-					logEvent($con, $accID, $txtEvent);
 				}
 			}
 
@@ -170,7 +192,7 @@
 						  VALUES (?, ?, ?)";
 			$params_insPL = array(0, $recentID, 5);
 			$stmt_insPL = sqlsrv_query($con, $sql_insPL, $params_insPL);
-		}
+		}	
 	}
 	else
 	{

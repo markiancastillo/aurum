@@ -95,7 +95,7 @@
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 					That username already exists. Please choose a different one.
 				</div>";
-	if(isset($_POST['btnUpdate']))
+/*	if(isset($_POST['btnUpdate']))
 	{
 		#check if user uploaded a photo
 		if(!isset($_FILES['inpPhoto']) || $_FILES['inpPhoto']['error'])
@@ -208,5 +208,37 @@
 				header('location: account.php?username=error');
 			} 
 		}
-	}	
+	}
+*/
+	if(isset($_POST['btnSave']))
+	{
+		#check if user uploaded a photo
+		if(!isset($_FILES['inpPhoto']) || $_FILES['inpPhoto']['error'])
+		{
+			#there is no new input for account photo
+			#do not update it in the database
+		}
+		else
+		{
+			#validate if the uploaded file is a valid image
+			#(accept it as valid if the type is a png, bmp, or jpg/jpeg)
+			$imgType = mime_content_type($_FILES["inpPhoto"]["tmp_name"]);
+			if($imgType == 'image/png' || $imgType == 'image/jpeg' || $imgType == 'image/bmp')
+			{
+				#update the photo with the new input
+				$imgName = $_FILES["inpPhoto"]["name"];
+	    		uploadPhoto($con, $accID, $imgName);
+
+	    		$txtEvent = "User updated their account information.";
+				logEvent($con, $accID, $txtEvent);
+
+				header('location: account.php?updated=yes');
+			}
+			else
+			{
+				#display an error prompt
+	    		die(header('location: account.php?img=error'));
+			}
+		}
+	}
 ?>

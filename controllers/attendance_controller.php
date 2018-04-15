@@ -31,7 +31,7 @@
                 $file = fopen($filename, "r");
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                 {
-                    $sql_attendance = "INSERT INTO attendance (accountID,attendanceIn,attendanceOut,attendanceDate) 
+                    $sql_attendance = "INSERT INTO attendances (accountID,attendanceIn,attendanceOut,attendanceDate) 
                                        VALUES ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."')";
                     $stmt_getAttendance = sqlsrv_query($con, $sql_getAttendance);
                     if(!isset($stmt_getAttendance))
@@ -49,6 +49,9 @@
                             </script>";
                     }
                 }
+
+                $txtEvent = "User uploaded a CSV file with the filename: " . $_FILES["file"]["name"] . ".";
+                logEvent($con, $accID, $txtEvent);
                 fclose($file); 
             }
         }
