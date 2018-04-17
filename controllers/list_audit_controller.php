@@ -27,7 +27,7 @@
 			$accountLN = htmlspecialchars(openssl_decrypt(base64_decode($row['accountLN']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
 			$accountName = $accountLN . ", " . $accountFN;
 			$logDate = $row['logDate']->format('m/d/Y h:i A');
-			$logEvent = openssl_decrypt(base64_decode($row['logEvent']), $method, $password, OPENSSL_RAW_DATA, $iv);
+			$logEvent = htmlspecialchars(openssl_decrypt(base64_decode($row['logEvent']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
 
 			$list_audit .= "
 				<tr>
