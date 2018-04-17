@@ -13,6 +13,7 @@
     <title><?php echo $pageTitle; ?></title>
 
     <!-- Local Files -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/js/bootstrap-datepicker/css/datepicker.css" />
