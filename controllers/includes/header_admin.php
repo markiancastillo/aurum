@@ -87,6 +87,20 @@
                     </li>
                     <li class="sub-menu dcjq-parent-li">
                         <a class="dcjq-parent" href="javascript:;">
+                            <i class="fa fa-list"></i>
+                            <span>Administrative</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="manage_pd.php" style="display: none">Positions & Departments</a></li>
+                            <li><a href="" style="display: none">Services & Expenses</a></li>
+                            <li><a href="manage_sss.php">SSS Table</a></li>
+                            <li><a href="">PhilHealth Table</a></li>
+                            <li><a href="manage_hdmf.php">HDMF Contribution</a></li>
+                            <li><a href="manage_wht.php">Withholding Tax Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu dcjq-parent-li">
+                        <a class="dcjq-parent" href="javascript:;">
                             <i class="fa fa-desktop"></i>
                             <span>User Management</span>
                         </a>
@@ -175,7 +189,5 @@
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
     <script src="assets/js/zabuto_calendar.js"></script>
-
-    <?php echo $_SERVER['DOCUMENT_ROOT'];?>
 </body>
 </html>
