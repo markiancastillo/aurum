@@ -80,7 +80,8 @@
                         </p>
                     </a>
                 </p>
-                <h5 class="centered"><?php echo $displayName; ?></h5>   
+                <h5 class="centered"><?php echo $displayName; ?></h5>
+                <h4 class="centered"><?php echo $displayPosition; ?></h4>       
                 <li class="mt">
                     <a class="active" href="index.php"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
                 </li>

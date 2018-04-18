@@ -38,6 +38,20 @@
 		$displayName = $accLN . ', ' . $accFN;
 		$displayPhoto = $accountPhoto;
 
+		//Display User Type
+		$sql_position = "SELECT accounts.accountID, positions.positionName FROM accounts
+						INNER JOIN positions ON accounts.positionID = positions.positionID WHERE accountID = ?";
+		$params_position = array($accID);
+		$stmt_position = sqlsrv_query($con, $sql_position, $params_position);
+
+		while($row = sqlsrv_fetch_array($stmt_position))
+		{
+			$positionName = $row['positionName'];
+		}
+
+
+		$displayPosition = $positionName;
+
 		$displayCreate = "style='display: none'";
 		$displayAttendance = "style='display: none'";
 		if($accPos == 8)

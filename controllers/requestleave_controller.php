@@ -21,7 +21,7 @@
 					</div>";
 	$sickerrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					Duration should be less or within 3 days.
+					Duration should be less or within 60 days.
 					</div>";
 	$maternityerrorMsg = "<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -171,7 +171,7 @@ if(isset($_POST['btnRequest']))
 	   	{
 	        if($monthDifference==0)
 	        {
-	            if($dayDifference>=1)
+	            if($dayDifference<=61 && $dayDifference>=1)
 	  			{
 	  				//photo proof of medical certificate required
 	  				if(!isset($_FILES['inpProof']) || $_FILES['inpProof']['error'])
