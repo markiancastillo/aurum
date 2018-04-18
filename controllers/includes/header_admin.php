@@ -97,6 +97,7 @@
                             <li><a href="">PhilHealth Table</a></li>
                             <li><a href="manage_hdmf.php">HDMF Contribution</a></li>
                             <li><a href="manage_wht.php">Withholding Tax Table</a></li>
+                            <li><a href="manage_allowance.php">Manage Allowances</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li">

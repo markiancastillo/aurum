@@ -326,7 +326,7 @@
 	
 		if(!$mail->send()) {
 			echo 'Message was not sent.';
-			echo 'Mailer error: ' . $mail->ErrorInfo;
+			#echo 'Mailer error: ' . $mail->ErrorInfo;
 		} else {
 			echo 'Message has been sent.';
 		}
@@ -601,7 +601,7 @@
 		}
 	}
 
-	function generatePayrollPDF($accID, $accountName, $accountBaseRate, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay)
+	function generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $accountBaseRate, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay)
 	{
 		#format the inputs
 		$dispBaseRate = number_format($accountBaseRate, 2, '.', ',');
@@ -630,11 +630,15 @@
 		$pdf->Cell(0, 5, 'Website: www.rflaw.com     E-mail: info@rflaw.com', 0, 1, 'C');
 		$pdf->Ln(20);
 
+		$dateS = date('m/d/Y', strtotime($payStartingDate));
+		$dateE = date('m/d/Y', strtotime($payEndingDate));
+
 		#start of billing details
 		$pdf->Cell(0, 5, 'Date: ' . date('m/d/Y'), 0, 1, 'R');
 		$OR = "P-" . date('ymd') . "-" . $accID;
 		$pdf->Cell(0, 5, 'OR# ' . $OR, 0, 1, 'R');
 		$pdf->Cell(0, 5, 'Account: ' . $accountName, 0, 1, 'L');
+		$pdf->Cell(0, 5, 'Department: ' . $departmentName, 0, 1, 'L');
 		$billType = "Payroll";
 		$pdf->Cell(0, 5, 'Type: ' . $billType, 0, 1, 'L');
 
@@ -643,6 +647,7 @@
 		$pdf->Ln(20);
 
 		$pdf->Cell(0, 5, 'BREAKDOWN', 0, 1, 'L');
+		$pdf->Cell(0, 5, '(For the period ' . $dateS . ' to ' . $dateE . ')', 0, 1, 'L');
 		$pdf->Ln(5);
 
 		#table body
@@ -758,6 +763,11 @@
 		$pdf->Output('F', $saveDir);
 
 		return $saveName;
+	}
+
+	function saveAsPDF($pDateFiled, $pDateFrom, $pDateTo, $pOR, $pBasicPay, $pEcola, $pWTax, $pSSS, $pMedical, $pHDMF, $pCPAllowance, $pMedAllowance, $pNetPay, $accountName, $departmentName, $grossPay)
+	{
+		
 	}
 
 	function logEvent($con, $accID, $txtEvent)

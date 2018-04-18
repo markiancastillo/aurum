@@ -4,6 +4,16 @@
 	include(loadHeader());
 	$accID = $_SESSION['accID'];
 
+	$msgDisplay = "";
+	$errDate = "<div class='alert alert-danger alert-dismissable fade in'>
+					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					Please enter a valid start/end date.
+				</div>";
+	$errTitle = "<div class='alert alert-danger alert-dismissable fade in'>
+					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					Please enter a valid project name.
+				</div>";
+
 	$list_employees = "";
 	$employees = getEmployees($con);
 	while($row = sqlsrv_fetch_array($employees))
@@ -37,10 +47,38 @@
 		$cRemarks = $_POST['cRemarks'];
 		$cStatus = $_POST['cStatus'];
 		
+		#validate start and end date:
+		#1. end date > start date
+		#2. start date must not be before current date
+		#3. end date != start date
 
-		$sql_insert = "INSERT INTO cases (caseTitle, caseDescription, clientID, accountID, caseStartDate, caseEndDate, caseRemarks, caseStatus) 
-					   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-		$params_insert = array($cTitle, $cDescription, $cClient, $cEmpAssigned, $cSDate, $cEDate, $cRemarks, $cStatus);
-		$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+		$currentDate = date('Y-m-d');
+
+		if($cEDate <= $cSDate || $cSDate < $currentDate)
+		{
+			#invalid date entry/entries. show error promt
+			$msgDisplay = $errDate;
+		}
+		else
+		{
+			#date entry is valid
+			#check if project has name
+			if(trim($cTitle) != null || !empty(trim($cTitle)))
+			{
+				$sql_insert = "INSERT INTO cases (caseTitle, caseDescription, clientID, accountID, caseStartDate, caseEndDate, caseRemarks, caseStatus) 
+					   		   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+				$params_insert = array($cTitle, $cDescription, $cClient, $cEmpAssigned, $cSDate, $cEDate, $cRemarks, $cStatus);
+				$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+
+				$txtEvent = "Created a new project titled: " . $cTitle;
+				logEvent($con, $accID, $txtEvent);
+
+				header('location: create_project.php?create=success');
+			}
+			else
+			{
+				$msgDisplay = $errTitle;
+			}
+		}
 	}
 ?>
