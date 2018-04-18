@@ -16,7 +16,7 @@
 					<br />
 					<table id="listTable" name="listTable" class="table table-hover">
 						<thead>
-							<th class="text-center">Date</th>
+							<th class="text-center">Date Filed</th>
 							<th class="text-center">Amount (Php)</th>
 							<th class="text-center">Service Type</th>
 							<th class="text-center">Status</th>

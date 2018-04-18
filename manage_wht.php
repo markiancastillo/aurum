@@ -28,9 +28,15 @@
 											<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 											Successfully added a new table entry.
 										</div>";
-
-									echo $msgDisplay;
 								}
+								echo $msgDisplay;
+								if(isset($_GET['update']))
+									{
+										echo "<div class='alert alert-success alert-dismissable fade in'>
+												<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+													Successfully updated the record.
+												</div>";
+									}
 							?>
 							</div>
 							<div class="col-lg-12">

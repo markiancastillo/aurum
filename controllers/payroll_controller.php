@@ -196,15 +196,17 @@
 									  VALUES (?, ?, ?, ?, ?)";
 				$params_insDeductions = array($sssTotal, $phPremium, $hdmfAmount, $dedIT, $accountID);
 				$stmt_insDeductions = sqlsrv_query($con, $sql_insDeductions, $params_insDeductions);
-	
+				
+				$OR = "P-" . date('ymd') . "-" . $accID;
+
 				#2. insert into the payrolls table
-				$sql_insPayroll = "INSERT INTO payrolls (pDateFiled, pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pNetPay, accountID)
-									VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$params_insPayroll = array($accountBaseRate, $allowanceEcola, $dedIT, $sssTotal, $allowanceMed, $hdmfAmount, $allowanceMobile, $allowanceMed, $netPay, $accountID);
+				$sql_insPayroll = "INSERT INTO payrolls (pDateFiled, pDateFrom, pDateTo, pOR,  pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pNetPay, accountID)
+									VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$params_insPayroll = array($payStartingDate, $payEndingDate, $OR, $accountBaseRate, $allowanceEcola, $dedIT, $sssTotal, $phPremium, $hdmfAmount, $allowanceMobile, $allowanceMed, $netPay, $accountID);
 				$stmt_insPayroll = sqlsrv_query($con, $sql_insPayroll, $params_insPayroll);
 
 				#3. generate the pdf file
-				$saveName = generatePayrollPDF($accID, $accountName, $accountBaseRate, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay);
+				$saveName = generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $accountBaseRate, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay);
 
 				#4. insert the pdf file into the database
 				$receiptFile = base64_encode(openssl_encrypt($saveName . ".pdf", $method, $password, OPENSSL_RAW_DATA, $iv));

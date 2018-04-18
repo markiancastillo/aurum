@@ -4,8 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!--<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5iyso3f5zg58ld5wqj8dw0ctl2a13x98zgwx1urb7hgtc415"></script> 
-  	<script>tinymce.init({ selector:'textarea' });</script>-->
+	<!--<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5iyso3f5zg58ld5wqj8dw0ctl2a13x98zgwx1urb7hgtc415"></script>--> 
+	<script type="text/javascript" src="lib/tinymce/jquery.tinymce.min.js"></script>
+  	<script>tinymce.init({ 
+		selector:'textarea' 
+	});</script>
 </head>
 <body>
 <section id="main-content">
@@ -14,27 +17,13 @@
 		<h1 class="text-center">Create project</h1>
 		<hr />
 		<?php 
-			if(isset($_POST['btnSubmit']))
+			echo $msgDisplay;
+			if(isset($_GET['create']))
 			{
-				if($stmt_insert === false)
-				{
-					echo "
-						<div class='alert alert-danger alert-dismissable fade in'>
-							<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-							die( print_r( sqlsrv_errors(), true));
-						</div>
-					";
-					die( print_r( sqlsrv_errors(), true));
-				}
-				else 
-				{
-					echo "
-						<div class='alert alert-success alert-dismissable fade in'>
-							<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-							Successfully created project!
-						</div>
-					";
-				}
+				echo "<div class='alert alert-danger alert-success fade in'>
+						<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						Successfully created a new project.
+					</div>";
 			}
 		?>
 		<form class="form-horizontal" method="POST">
@@ -49,8 +38,7 @@
 				<div class="form-group">
 							<label class="control-label col-lg-3">Project Description</label>	
 							<div class="col-lg-8">
-							<textarea type="text" name="cRemarks" class="form-control">
-							</textarea>
+							<textarea id="cDescription" name="cDescription" class="form-control"></textarea>
 						</div>
 				</div>
 				<div class="form-group">

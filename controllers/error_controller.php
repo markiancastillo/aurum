@@ -7,6 +7,6 @@
 
 	if(isset($_POST['btnHome']))
 	{
-		header('location: index.php');
+		header('location: '. $_SERVER['DOCUMENT_ROOT'] . '/aurum/index.php');
 	}
 ?>

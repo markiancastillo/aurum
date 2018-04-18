@@ -45,7 +45,7 @@ include('controllers/forgot_password_controller.php');
                             </label>
                         </span>
                         <span class="input input--hoshi">
-                            <input class="input__field input__field--hoshi" type="text" id="inpUsername" name="inpUsername" maxlength="100" />
+                            <input class="input__field input__field--hoshi" type="text" id="inpUsername" name="inpUsername" maxlength="100" autocomplete="off" />
                             <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="name">
                                 <span class="input__label-content input__label-content--hoshi">Username</span>
                             </label>

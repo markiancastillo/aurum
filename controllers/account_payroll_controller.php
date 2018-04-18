@@ -3,6 +3,8 @@
 	include('function.php');
 	include(loadHeader());
 
+	$accID = $_SESSION['accID'];
+
 	$sql_count = "SELECT COUNT(pID) as 'rowCount' FROM payrolls 
 				  WHERE accountID = ?";
 	$params_count = array($accID);
@@ -12,25 +14,37 @@
 		$rowCount = $rowC['rowCount'];
 	}
 
-	$sql_list = "SELECT receiptFile, receiptDate, receiptRemarks, receiptStatus FROM receipts
-				 WHERE receiptRemarks LIKE 'Payroll%'
-				 ORDER BY receiptDate DESC";
-	$stmt_list = sqlsrv_query($con, $sql_list);
+	$sql_list = "SELECT pID, pDateFiled, pDateFrom, pDateTo, pBasicPay, (pEcola + pCPAllowance + pMedAllowance) AS 'Allowances', (pSSS + pMedical + pHDMF + pWTax) AS 'Deductions', pNetPay FROM payrolls WHERE accountID = ?";
+	$params_list = array($accID);
+	$stmt_list = sqlsrv_query($con, $sql_list, $params_list);
 
 	$list_payrolll = "";
-	while($rowL = sqlsrv_fetch_array($stmt_list))
+	while($row = sqlsrv_fetch_array($stmt_list))
 	{
-		$receiptFile = htmlspecialchars(openssl_decrypt(base64_decode($rowL['receiptFile']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
-		$receiptDate = $rowL['receiptDate']->format('m/d/Y');
-		$receiptRemarks = $rowL['receiptRemarks'];
-		$receiptStatus = $rowL['receiptStatus'];
+		$pID = $row['pID'];
+		$pDateFiled = $row['pDateFiled']->format('m/d/Y');
+		$pDateFrom = $row['pDateFrom']->format('m/d/Y');
+		$pDateTo = $row['pDateTo']->format('m/d/Y');
+#		$df = $pDateFrom->format('m/d/Y');
+#		$dt = $pDateTo->format('m/d/Y');
+		$pBasicPay = htmlspecialchars($row['pBasicPay'], ENT_QUOTES, 'UTF-8');
+		$Allowances = htmlspecialchars($row['Allowances'], ENT_QUOTES, 'UTF-8');
+		$Deductions = htmlspecialchars($row['Deductions'], ENT_QUOTES, 'UTF-8');
+		$pNetPay = $row['pNetPay'];
 
 		$list_payroll .= "
 			<tr>
-				<td class='text-center'>$receiptDate</td>
-				<td class='text-center'>$receiptFile</td>
-				<td class='text-center'>$receiptRemarks</td>
-				<td class='text-center'>$receiptStatus</td>
+				<td class='text-center'>$pDateFiled</td>
+				<td class='text-center'>$pDateFrom to $pDateTo</td>
+				<td class='text-center'>$pBasicPay</td>
+				<td class='text-center'>$Allowances</td>
+				<td class='text-center'>$Deductions</td>
+				<td class='text-center'>$pNetPay</td>
+				<td>
+					<a href='view_payroll.php?id=$pID' class='btn btn-default'>
+						View Details
+					</a>
+				<td>
 			</tr>
 		";
 	}

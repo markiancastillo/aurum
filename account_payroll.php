@@ -18,9 +18,11 @@
 						<table id="listTable" name="listTable" class="table table-hover">
 							<thead>
 								<th class="text-center">Date</th>
-								<th class="text-center">File</th>
-								<th class="text-center">Remarks</th>
-								<th class="text-center">Status</th>
+								<th class="text-center">Coverage</th>
+								<th class="text-center">Base Pay</th>
+								<th class="text-center">Allowances</th>
+								<th class="text-center">Deductions</th>
+								<th class="text-center">Net Pay</th>
 							</thead>
 							<tbody>
 								<tr>
@@ -29,7 +31,7 @@
 									{
 										echo "
 											<tr>
-												<td colspan='4' class='text-center'><h3>No Receipts Found</h3></td>
+												<td colspan='6' class='text-center'><h3>No Records Found</h3></td>
 											</tr>
 										";
 									}
