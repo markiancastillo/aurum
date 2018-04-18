@@ -146,10 +146,11 @@
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li" <?php echo $displayAttendance; ?>>
-                        <a href="attendance.php">
-                            <i class="fa fa-book"></i>
-                            <span>Attendance</span>
-                        </a>
+                         <a href="javascript:;" ><i class="fa fa-cogs"></i><span>Attendance</span></a>
+                        <ul class="sub">
+                            <li><a href="attendance.php">Update Attendance</a></li>
+                            <li><a href="view_records.php">View Records</a></li>
+                        </ul>
                     </li>
                     <li class="sub-menu">
                         <a href="javascript:;" ><i class="fa fa-cogs"></i><span>Requests</span></a>
