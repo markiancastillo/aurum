@@ -42,7 +42,7 @@
                     </form>
                 </div>
             </div>
-            <div style="display:<?php echo $display ?>">
+            <div>
                 <?php
                    get_all_records($con);
                 ?>
