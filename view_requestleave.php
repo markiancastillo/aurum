@@ -17,7 +17,8 @@
 					<div class="form-group">	
 						<label class="control-label col-lg-4">Leave File Date</label>
 						<div class="col-lg-8">
-							<p class="form-control-static"><?php echo $leaveFileDate; ?></p>
+							<input type="text" id="holidayName" name="holidayName" class="form-control" required="true" />
+							<?php echo $leaveFileDate; ?>
 						</div>
 					</div>
 					<div class="form-group">	
@@ -63,9 +64,35 @@
 							</button>
 						</div>
 						<div class="col-lg-5">
-							<button class="btn btn-block btn-danger" id="btnDeny" name="btnDeny" onclick="return confirm('Confirm disapproval of leave request #<?php echo $_REQUEST['id']; ?>?');">
-								<span class='glyphicon glyphicon-remove'></span> Disapprove
-							</button>
+							<button class="btn btn-block btn-danger" data-toggle="modal" data-target="#disapproveModal">
+												<span class='glyphicon glyphicon-remove'></span> Disapprove
+											</button>
+							<div id="disapproveModal" class="modal fade" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">Disapprove Request</h4>
+												</div>
+												<form class="form-horizontal" method="POST" role="form">
+													<div class="modal-body">
+														<div class="form-group">	
+															<label class="control-label col-lg-3">Disapproval Note</label>
+															<div class="col-lg-9">
+																<textarea class="form-control" rows="3" id="inpNote" name="inpNote" placeholder="Reason for disapproval" required="true"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+														<button type="submit" class="btn btn-danger" id="btnDeny" name="btnDeny">
+															<span class='glyphicon glyphicon-remove'></span> Disapprove
+														</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>	
 						</div>
 					</div>
 				</div>	

@@ -98,6 +98,7 @@
                             <li><a href="manage_hdmf.php">HDMF Contribution</a></li>
                             <li><a href="manage_wht.php">Withholding Tax Table</a></li>
                             <li><a href="manage_allowance.php">Manage Allowances</a></li>
+                            <li><a href="<?php echo app_path?>manage_holidays.php">Manage Holidays</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li">
