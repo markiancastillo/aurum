@@ -1,5 +1,6 @@
 <?php
 	$pageTitle = "Payroll Details";
+	require_once $_SERVER['DOCUMENT_ROOT'] . '/aurum/lib/fpdf/fpdf.php';
 	include('function.php');
 	include(loadHeader());
 
@@ -24,8 +25,8 @@
 	{
 
 		$sql_det = "SELECT pID, pDateFiled, pDateFrom, pDateTo, pOR, pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pNetPay FROM payrolls
-					WHERE accountID = ?";
-		$params_det = array($accID);
+					WHERE accountID = ? AND pID = ?";
+		$params_det = array($accID, $reqID);
 		$stmt_det = sqlsrv_query($con, $sql_det, $params_det);
 
 		while($rowd = sqlsrv_fetch_array($stmt_det))
@@ -45,6 +46,7 @@
 			$pNetPay = $rowd['pNetPay'];
 
 			$grossPay = $pBasicPay + ($pCPAllowance/2) + ($pEcola/2) + ($pMedAllowance/2);
+			$calcAtt = ($grossPay - ($pSSS + $pMedical + $pHDMF + $pWTax)) - $pNetPay;
 		}
 
 		if(isset($_POST['btnSave']))
@@ -60,11 +62,14 @@
 
 			while($rowa = sqlsrv_fetch_array($stmt_acc))
 			{
-				$accountName = $rowa['accountLN'] . ", " . $rowa['accountFN'] . " " . $rowa['accountMN'];
+				$accountFN = htmlspecialchars(openssl_decrypt(base64_decode($rowa['accountFN']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
+				$accountMN = htmlspecialchars(openssl_decrypt(base64_decode($rowa['accountMN']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
+				$accountLN = htmlspecialchars(openssl_decrypt(base64_decode($rowa['accountLN']), $method, $password, OPENSSL_RAW_DATA, $iv), ENT_QUOTES, 'UTF-8');
+				$accountName = $accountLN . ", " . $accountFN . " " . $accountMN;
 				$departmentName = $rowa['departmentName'];
 			}
 
-			#saveAsPDF($pDateFiled, $pDateFrom, $pDateTo, $pOR, $pBasicPay, $pEcola, $pWTax, $pSSS, $pMedical, $pHDMF, $pCPAllowance, $pMedAllowance, $pNetPay, $accountName, $departmentName, $grossPay);
+			saveAsPDF($pDateFiled, $pOR, $accountName, $departmentName, $pDateFrom, $pDateTo, $pBasicPay, $pCPAllowance, $pEcola, $pMedAllowance, $grossPay, $pSSS, $pMedical, $pHDMF, $pWTax, $calcAtt, $pNetPay);
 		}
 	}
 ?>

@@ -52,7 +52,7 @@
 					<div class="form-group">
 						<label class="control-label col-lg-4">Amount</label>
 						<div class="col-lg-6">
-							<input type="number" id="inpAmount" name="inpAmount" class="form-control" min="1" step=".01" value="1" required />
+							<input type="number" id="inpAmount" name="inpAmount" class="form-control" min="1" step=".01" value="1" max="100000" required />
 						</div>
 					</div>
 					<div class="form-group">

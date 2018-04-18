@@ -81,4 +81,6 @@
 			}
 		}
 	}
+#tinyMCE javascript workaround taken from: 
+#https://stackoverflow.com/questions/28673592/tinymce-does-not-appear-to-be-working-for-me
 ?>

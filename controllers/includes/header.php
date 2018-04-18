@@ -40,7 +40,7 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.php">
                         <i class="fa fa-tasks"></i>
-                        <span class="badge bg-theme"><?php echo $notifCount; ?></span>
+                        <span class="badge bg-theme"><?php echo ($notifCount==0) ? "" : $notifCount; ?></span>
                     </a>
                     <ul class="dropdown-menu extended tasks-bar">
                         <div class="notify-arrow notify-arrow-green"></div>
