@@ -13,22 +13,22 @@
 			<h1 class="text-center">Edit Holiday</h1>
 			<hr />
 			<div class="col-lg-12">
-				<form class="form-horizontal">
+				<form class="form-horizontal" method="POST">
 					<div class="form-group">	
 						<label class="control-label col-lg-4">Holiday Name</label>
 						<div class="col-lg-3">
-							<input type="text" id="updatedholidayName" name="updatedholidayName" class="form-control" required="true" value="<?php echo $holidayName; ?>"/>
+							<input type="text" id="updatedholidayName" name="updatedholidayName" class="form-control" value="<?php echo $holidayName; ?>"/>
 						</div>
 					</div>
 					<div class="form-group">	
 						<label class="control-label col-lg-4">Holiday Date</label>
 						<div class="col-lg-3">
-							<input type="date" id="updatedholidayDate" name="updatedholidayDate" class="form-control" required="true" value="<?php echo $holidayDate; ?>"/>
+							<input type="date" id="updatedholidayDate" name="updatedholidayDate" class="form-control" value="<?php echo $holidayDate; ?>"/>
 						</div>
 					
-				</form>
+
 			</div>
-			<form class="col-lg-12" method="POST">
+
 				<div class="col-lg-12">
 					<div class="col-lg-6">
 						<div class="col-lg-5">
@@ -38,14 +38,7 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<div class="col-lg-7">
-							<button class="btn btn-block btn-success" id="btnUpdate" name="btnUpdate" onclick="return confirm('Confirm update of holiday?')">
-								<span class='glyphicon glyphicon-ok'></span> Update</button>
-							</button>
-						</div>
-						
-					</div>
+					<input type="submit" name="buttonA" id="buttonA">
 				</div>	
 			</form>
 		</div>

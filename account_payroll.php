@@ -14,8 +14,14 @@
 				<div class="form-panel">
 					<h1 class="text-center">My Payroll Receipts</h1>
 					<br />
+					<div class="form-group">
+						<div class="input-group col-lg-8 col-lg-offset-2">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+							<input type="text" name="keySearch" id="keySearch" class="form-control" placeholder="Enter a keyword...">
+						</div>
+					</div>
 					<fieldset>
-						<table id="listTable" name="listTable" class="table table-hover">
+						<table class="table table-hover">
 							<thead>
 								<th class="text-center">Date</th>
 								<th class="text-center">Coverage</th>
@@ -24,7 +30,7 @@
 								<th class="text-center">Deductions</th>
 								<th class="text-center">Net Pay</th>
 							</thead>
-							<tbody>
+							<tbody id="listTable" name="listTable">
 								<tr>
 									<?php
 									if($rowCount <= 0)
@@ -49,5 +55,15 @@
 		</div>
 	</section>
 </section>
+<script>
+$(document).ready(function(){
+	$("#keySearch").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#listTable tr").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+});
+</script>
 </body>
 </html>

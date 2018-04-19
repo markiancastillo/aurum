@@ -119,7 +119,7 @@
 								<div class="form-group">
 									<label class="control-label col-lg-3">Base Rate</label>
 									<div class="col-lg-8">
-										<input type="number" id="inpBaseRate" name="inpBaseRate" class="form-control" min=1 step=".01" value="1" required="true" />
+										<input type="number" id="inpBaseRate" name="inpBaseRate" class="form-control" min=1 step=".01" value="1" max="999999.99" required="true" />
 									</div>
 								</div>	
 							</div>

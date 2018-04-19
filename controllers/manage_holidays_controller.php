@@ -44,7 +44,7 @@
 			
 
 					<td class='text-center'>
-							<a href='edit_holiday.php?id=$holidayID' class='btn btn-default' data-toggle='tooltip' data-position='top' title='Edit'>Edit</a>
+							<a href='edit_holiday.php?hid=$holidayID' class='btn btn-default' data-toggle='tooltip' data-position='top' title='Edit'>Edit</a>
 
 							
 					</td>	

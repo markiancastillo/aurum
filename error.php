@@ -17,9 +17,12 @@
 					<br>
 					<div class="col-lg-2 col-lg-offset-5">
 						<form method="POST">
-							<button type="submit" class="btn btn-block btn-default" id="btnHome" name="btnHome">
+							<!--<button type="submit" class="btn btn-block btn-default" id="btnHome" name="btnHome">
 								<span class='glyphicon glyphicon-home'></span> Back to Home
-							</button>
+							</button>-->
+							<a href="index.php" class="btn btn-block btn-default">
+								<span class='glyphicon glyphicon-home'></span> Back to Home
+							</a>
 						</form>
 					</div>
 				</div>

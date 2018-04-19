@@ -3,10 +3,18 @@
     include('function.php');
     include(loadHeader());
 
+    #determine if the user is an HR
+    #deny access if they are not
+    $access = determineAccess();
+    if(strcasecmp($access, "disabled") == 0)
+    {
+        header('location: index.php');
+    }
+    else
+    {
 
-    if(isset($_POST["Import"])){
-
-
+        if(isset($_POST["Import"]))
+        {
             $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain' );
             if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'],$csvMimes))
             {
@@ -42,7 +50,8 @@
                         </script>";
                     }
                  }
-                
+                $txtEvent = "User uploaded a CSV file with the filename: " . $_FILES["file"]["name"] . ".";
+                logEvent($con, $accID, $txtEvent);
                  fclose($file); 
              }
         }
