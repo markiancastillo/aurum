@@ -182,8 +182,9 @@
 						#compute for the gross pay
 						#get the allowances first 
 						$sql_allowance = "SELECT allowanceMobile, allowanceEcola, allowanceMed 
-										  FROM allowances";
-						$stmt_allowance = sqlsrv_query($con, $sql_allowance);
+										  FROM allowances WHERE accountID = ?";
+						$params_allowance = array($accountID);
+						$stmt_allowance = sqlsrv_query($con, $sql_allowance, $params_allowance);
 					    while($rowAll = sqlsrv_fetch_array($stmt_allowance))
 						{
 						    $allowanceMobile = $rowAll['allowanceMobile'];

@@ -5,6 +5,13 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="lib/datatables/datatables.min.css"/>
+	<script type="text/javascript" src="lib/datatables/datatables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+	<script type="text/javascript">
+		
+	</script>
 </head>
 <body>
 <section id="main-content">
@@ -21,7 +28,7 @@
 						</div>
 					</div>
 					<fieldset>
-						<table class="table table-hover">
+						<table id="reimbTable" name="reimbTable" class="table table-hover">
 							<thead>
 								<th class="text-center">Date Filed</th>
 								<th class="text-center">Amount (Php)</th>
