@@ -13,7 +13,7 @@
 	$params_approve = array($l, $reqID);
 	$stmt_approve = sqlsrv_query($con, $sql_approve, $params_approve);
 
-	$sql_update = "UPDATE leavecounts SET lcAmount = lcAmount +1 WHERE accountID = ? AND ltypeID = ? AND lcAmount < 15";
+	$sql_update = "UPDATE leavecounts SET lcAmount = lcAmount +1 WHERE accountID = ? AND ltypeID = ?";
 	$params_update = array($reqID, $lID);
 	$stmt_update = sqlsrv_query($con, $sql_update, $params_update);
 

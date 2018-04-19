@@ -41,23 +41,23 @@
 					</div>";
 	$sickunconsumederrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					You have already maximized 'sick' leave.
+					You have already maximized 'sick' leave. But your request has been sent.
 					</div>";
 	$maternityunconsumederrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					You have already maximized 'maternity' leave.
+					You have already maximized 'maternity' leave. But your request has been sent.
 					</div>";
 	$vacationunconsumederrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					You have already maximized 'vacation' leave.
+					You have already maximized 'vacation' leave. But your request has been sent.
 					</div>";
 	$emergencyconsumederrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					You have already maximized 'emergency' leave.
+					You have already maximized 'emergency' leave. But your request has been sent.
 					</div>";
 	$paternityconsumederrorMsg ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					You have already maximized 'paternity' leave.
+					You have already maximized 'paternity' leave. But your request has been sent.
 					</div>";
 	$requiredPhotoError ="<div class='alert alert-danger alert-dismissable fade in'>
 					<a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -141,25 +141,264 @@ if(isset($_POST['btnRequest']))
 	if($ltypeID == 1 && $sickUnconsumed == 15)
 	{
 		$dispMsg = $sickunconsumederrorMsg;
+		//Validation for date	 
+		$dayDifference = date_diff($leaveFrom, $leaveTo)->format('%d');
+	    $yearDifference = date_diff($leaveFrom, $leaveTo)->format('%y');
+	    $monthDifference = date_diff($leaveFrom, $leaveTo)->format('%m');
+		if($yearDifference==0)
+	   	{
+	        if($monthDifference==0)
+	        {
+	            if($dayDifference<=61 && $dayDifference>=1)
+	  			{
+	  				//photo proof of medical certificate required
+	  				if(!isset($_FILES['inpProof']) || $_FILES['inpProof']['error'])
+					{
+						#display an error message
+						$valMsg = $requiredPhotoError;
+					}
+					else
+					{
+						#validate if the uploaded file is a valid image
+						#(accept it as valid if the type is a png, bmp, or jpg/jpeg)
+						$imgType = mime_content_type($_FILES["inpProof"]["tmp_name"]);
+						if($imgType == 'image/png' || $imgType == 'image/jpeg' || $imgType == 'image/bmp')
+						{
+							#update the photo with the new input
+							$imgName = $_FILES["inpProof"]["name"];
+				    		$imgProof = uploadLeaveProof($con, $accID, $imgName);
+
+				    		$sql_insert = "INSERT INTO leaves (leaveReason, leaveFileDate, leaveFrom, leaveTo, leaveProof, leaveStatus, accountID, ltypeID) 
+								   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+							$params_insert = array($leaveReason, $leaveFileDate, $leaveFrom,  $leaveTo, $imgProof, 'Pending for Approval', $accID, $ltypeID);	
+							$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+				
+							if($stmt_insert === false) 
+							{
+								#die(print_r(sqlsrv_errors(), true));
+								$dispMsg = $errorMsg;
+							}
+							else 
+							{
+								$dispMsg = $sickunconsumederrorMsg;
+							}
+						}
+						else
+						{
+							#display an error prompt
+				    		$valMsg = $photoFileError;
+						}
+					}
+				}	
+				else 
+				{
+					$dispMsg = $sickerrorMsg;
+				}
+			}
+			else
+			{
+				$dispMsg = $sickerrorMsg;
+			}
+		}	
+		else
+		{
+			$dispMsg = $sickerrorMsg;
+		}
+	
 	}
 	else if($ltypeID == 2 && $maternityUnconsumed == 15)
 	{
 		$dispMsg = $maternityunconsumederrorMsg;
+		//Validation for date	 
+		$dayDifference = date_diff($leaveFrom, $leaveTo)->format('%d');
+	    $yearDifference = date_diff($leaveFrom, $leaveTo)->format('%y');
+	    $monthDifference = date_diff($leaveFrom, $leaveTo)->format('%m');
+
+    	if($yearDifference==0)
+    	{
+    	    if($monthDifference==0)
+    	    {
+    	        if($dayDifference<=61 && $dayDifference>=1)
+  			    {
+  			    	//photo proof of medical certificate required
+	  				if(!isset($_FILES['inpProof']) || $_FILES['inpProof']['error'])
+					{
+						#display an error message
+						$valMsg = $requiredPhotoError;
+					}
+					else
+					{
+						#validate if the uploaded file is a valid image
+						#(accept it as valid if the type is a png, bmp, or jpg/jpeg)
+						$imgType = mime_content_type($_FILES["inpProof"]["tmp_name"]);
+						if($imgType == 'image/png' || $imgType == 'image/jpeg' || $imgType == 'image/bmp')
+						{
+							#update the photo with the new input
+							$imgName = $_FILES["inpProof"]["name"];
+				    		$imgProof = uploadLeaveProof($con, $accID, $imgName);
+
+				    		$sql_insert = "INSERT INTO leaves (leaveReason, leaveFileDate, leaveFrom, leaveTo, leaveProof, leaveStatus, accountID, ltypeID) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+							$params_insert = array($leaveReason, $leaveFileDate, $leaveFrom,  $leaveTo, $imgProof, 'Pending for Approval', $accID, $ltypeID);
+							$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+		
+							if($stmt_insert === false) 
+							{
+								$dispMsg = $maternityunconsumederrorMsg;
+							}
+							else 
+							{
+								$dispMsg = $successMsg;
+							}
+				    	}
+				    	else
+						{
+							#display an error prompt
+				    		$valMsg = $photoFileError;
+						}
+				    }	
+				}
+			
+			else
+			{
+				$dispMsg = $maternityerrorMsg;
+			}
+		}
+		else
+		{
+			$dispMsg = $maternityerrorMsg;
+		}
+	}
 	}
 	else if($ltypeID == 3 && $vacationUnconsumed == 15)
 	{
 		$dispMsg = $vacationunconsumederrorMsg;
+		//Validation for date	 
+		$dayDifference = date_diff($leaveFrom, $leaveTo)->format('%d');
+	    $yearDifference = date_diff($leaveFrom, $leaveTo)->format('%y');
+	    $monthDifference = date_diff($leaveFrom, $leaveTo)->format('%m');
+		if($yearDifference==0)
+	   	{
+	        if($monthDifference==0)
+	        {
+	            if($dayDifference>=1)
+	  			{
+					$sql_insert = "INSERT INTO leaves (leaveReason, leaveFileDate, leaveFrom, leaveTo, leaveProof, leaveStatus, accountID, ltypeID) 
+								   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+					$params_insert = array($leaveReason, $leaveFileDate, $leaveFrom,  $leaveTo, $imgProof, 'Pending for Approval', $accID, $ltypeID);
+					$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+	
+					if($stmt_insert === false) 
+					{
+						$dispMsg = $errorMsg;
+					}
+					else 
+					{
+						$dispMsg = $successMsg;
+					}
+				}
+				else 
+				{
+					$dispMsg = $successMsg;
+				}
+			}
+			else
+			{
+				$dispMsg = $sickerrorMsg;
+			}
+		}			
+		else
+		{
+			$dispMsg = $sickerrorMsg;
+		}
 	}
 	else if($ltypeID == 4 && $emergencyUnconsumed == 15)
 	{
 		$dispMsg = $emergencyunconsumederrorMsg;
+		//Validation for date	 
+	$dayDifference = date_diff($leaveFrom, $leaveTo)->format('%d');
+    $yearDifference = date_diff($leaveFrom, $leaveTo)->format('%y');
+    $monthDifference = date_diff($leaveFrom, $leaveTo)->format('%m');
+
+    if($yearDifference==0)
+    {
+        if($monthDifference==0)
+        {
+            if($dayDifference<=6 && $dayDifference>=1)
+  			{
+				$sql_insert = "INSERT INTO leaves (leaveReason, leaveFileDate, leaveFrom, leaveTo, leaveProof, leaveStatus, accountID, ltypeID) 
+							   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+				$params_insert = array($leaveReason, $leaveFileDate, $leaveFrom,  $leaveTo, $imgProof, 'Pending for Approval', $accID, $ltypeID);
+				$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+
+				if($stmt_insert === false) 
+				{
+					$dispMsg = $emergencyunconsumederrorMsg;
+				}
+				else 
+				{
+					$dispMsg = $successMsg;
+				}
+			}
+			else
+			{
+				$dispMsg = $emergencyerrorMsg;
+			}
+		}
+		else
+		{
+			$dispMsg = $emergencyerrorMsg;
+		}
+	}
+	else
+	{
+		$dispMsg = $emergencyerrorMsg;
+	}
 	}
 	else if($ltypeID == 5 && $paternityUnconsumed == 15)
 	{
 		$dispMsg = $paternityunconsumederrorMsg;
+		//Validation for date	 
+		$dayDifference = date_diff($leaveFrom, $leaveTo)->format('%d');
+    	$yearDifference = date_diff($leaveFrom, $leaveTo)->format('%y');
+    	$monthDifference = date_diff($leaveFrom, $leaveTo)->format('%m');
+
+    	if($yearDifference==0)
+    	{
+    	    if($monthDifference==0)
+    	    {
+    	        if($dayDifference<=8 && $dayDifference>1)
+  				{
+					$sql_insert = "INSERT INTO leaves (leaveReason, leaveFileDate, leaveFrom, leaveTo, leaveProof, leaveStatus, accountID, ltypeID) 
+								   VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+					$params_insert = array($leaveReason, $leaveFileDate, $leaveFrom,  $leaveTo, $imgProof, 'Pending for Approval', $accID, $ltypeID);
+					$stmt_insert = sqlsrv_query($con, $sql_insert, $params_insert);
+
+					if($stmt_insert === false) 
+					{
+						$dispMsg = $errorMsg;
+					}
+					else 
+					{
+						$dispMsg = $successMsg;
+					}
+				}
+				else
+				{
+					$dispMsg = $paternityerrorMsg;
+				}
+			}
+			else
+			{
+				$dispMsg = $paternityerrorMsg;
+			}
+		}
+		else
+		{
+			$dispMsg = $paternityerrorMsg;
+		}
 	}
 	else 
-	{ 
+	{
 	//If Sick Leave is chosen
 	if($ltypeID == 1)
 	{

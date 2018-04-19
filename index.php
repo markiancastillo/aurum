@@ -37,14 +37,13 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    
-                                    <div>View Reimbursement</div>
+                                    <div><h4>Reimbursement Applications</h4></div>
                                 </div>
                             </div>
                         </div>
                         <a href="list_reimbursement.php">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left"><?php echo $rMessage; ?></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -59,14 +58,13 @@
                                     <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    
-                                    <div>View Service Fee</div>
+                                    <div><h4>Service Fee Applications</h4></div>
                                 </div>
                             </div>
                         </div>
                         <a href="list_servicefee.php">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left"><?php echo $sMessage; ?></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -80,15 +78,14 @@
                                 <div class="col-xs-3">
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    
-                                    <div>Create Project</div>
+                                <div class="col-xs-9 text-right">   
+                                    <div><h4>Leave Applications</h4></div>
                                 </div>
                             </div>
                         </div>
-                        <a href="create_project.php">
+                        <a href="requestto_admin.php">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left"><?php echo $lMessage; ?></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>

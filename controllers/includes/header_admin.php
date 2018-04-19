@@ -39,7 +39,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.php">
                             <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme"><?php echo $notifCount; ?></span>
+                            <span class="badge bg-theme"><?php echo ($notifCount==0) ? "" : $notifCount; ?></span>
                         </a>
                         <ul class="dropdown-menu extended tasks-bar">
                             <div class="notify-arrow notify-arrow-green"></div>
@@ -98,6 +98,7 @@
                             <li><a href="manage_hdmf.php">HDMF Contribution</a></li>
                             <li><a href="manage_wht.php">Withholding Tax Table</a></li>
                             <li><a href="manage_allowance.php">Manage Allowances</a></li>
+                            <li><a href="<?php echo app_path?>manage_holidays.php">Manage Holidays</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li">

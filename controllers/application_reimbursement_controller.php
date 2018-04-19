@@ -93,4 +93,5 @@
 			$dispMsg = $errorMsg;
 		}
 	}
+#search script taken from: https://www.w3schools.com/bootstrap/bootstrap_filters.asp
 ?>

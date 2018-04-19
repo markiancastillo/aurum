@@ -5,10 +5,18 @@
 <html>
 <head>
 	<!--<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5iyso3f5zg58ld5wqj8dw0ctl2a13x98zgwx1urb7hgtc415"></script>--> 
-	<script type="text/javascript" src="lib/tinymce/jquery.tinymce.min.js"></script>
-  	<script>tinymce.init({ 
-		selector:'textarea' 
-	});</script>
+	<script type="text/javascript" src="lib/tinymce/js/tinymce/tinymce.min.js"></script>
+  	<script type="text/javascript">
+  		tinymce.init({
+    	selector: "textarea",
+    	plugins: [
+	        "advlist autolink lists link image charmap print preview anchor",
+    	    "searchreplace visualblocks code fullscreen",
+        	"insertdatetime media table contextmenu paste"
+    	],
+    	toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+		});
+	</script>
 </head>
 <body>
 <section id="main-content">

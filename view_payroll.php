@@ -18,6 +18,14 @@
 					<fieldset>
 						<div class="col-lg-10 col-lg-offset-1">
 						<table id="listTable" name="listTable" class="table table-bordered table-hover">
+							<thead>
+								<th class="text-center" colspan="2">
+									(For the period <?php echo $pDateFrom . ' to ' . $pDateTo; ?>)
+								</th>
+								<th class="text-center" colspan="2">
+									OR# <?php echo $pOR; ?>
+								</th>
+							</thead>
 							<tbody>
 								<tr>
 									<td><h5>Basic Pay</h5></td>
@@ -107,7 +115,7 @@
 									<td></td>
 									<td>Absences</td>
 									<td class="text-right">
-										<span class='pull-left'>Php </span><?php echo number_format("999999", 2); ?>
+										<span class='pull-left'>Php </span><?php echo number_format($calcAtt, 2); ?>
 									</td>
 									<td></td>
 								</tr>
