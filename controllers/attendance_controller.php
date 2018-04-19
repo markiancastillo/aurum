@@ -11,13 +11,21 @@
             if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'],$csvMimes))
             {
             
-            $filename=$_FILES["file"]["tmp_name"];      
+            $filename=$_FILES["file"]["tmp_name"]; 
+
+            if (file_exists($filename)) {
+                echo "The file $filename exists";
+            } else {
+                echo "The file $filename does not exist";
+            }
+
+          
              if($_FILES["file"]["size"] > 0)
              {
                 $file = fopen($filename, "r");
                 while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
                  {
-                   $sql_getAttendance = "INSERT into attendance (accountID,attendanceIn,attendanceOut,attendanceDate) 
+                   $sql_getAttendance = "INSERT INTO attendances (accountID,attendanceIn,attendanceOut,attendanceDate) 
                        values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."')";
                        $stmt_getAttendance = sqlsrv_query($con, $sql_getAttendance);
                     if(!isset($stmt_getAttendance))

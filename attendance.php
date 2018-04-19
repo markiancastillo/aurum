@@ -36,9 +36,9 @@
                      </form>
                     </fieldset>
                    </div>
-                </div>
-            </div>
+                 </div>
+             </div>
         </section>
-    </section>
-</body>
+        </section>
+ </body>
 </html>
