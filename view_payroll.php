@@ -66,6 +66,14 @@
 									<td></td>
 								</tr>
 								<tr>
+									<td></td>
+									<td>Holiday Bonus/es</td>
+									<td class="text-right">
+										<span class='pull-left'>Php </span><?php echo number_format($pHoliday, 2); ?>
+									</td>
+									<td></td>
+								</tr>
+								<tr>
 									<td><h5><strong>Gross Pay</strong></h5></td>
 									<td></td>
 									<td></td>
@@ -115,7 +123,7 @@
 									<td></td>
 									<td>Absences</td>
 									<td class="text-right">
-										<span class='pull-left'>Php </span><?php echo number_format($calcAtt, 2); ?>
+										<span class='pull-left'>Php </span><?php echo number_format($pAbsence, 2); ?>
 									</td>
 									<td></td>
 								</tr>

@@ -192,6 +192,10 @@
 						  VALUES (?, ?, ?)";
 			$params_insPL = array(0, $recentID, 5);
 			$stmt_insPL = sqlsrv_query($con, $sql_insPL, $params_insPL);
+
+			#insert data into allowances table
+			$sql_insAll = "INSERT INTO allowances (allowanceMobile, allowanceEcola, allowanceMed, accountID) VALUES (?, ?, ?, ?)";
+			$params_insAll = array(300.00, 480.00, 500.00, $recentID);
 		}	
 	}
 	else

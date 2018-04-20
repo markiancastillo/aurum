@@ -196,19 +196,28 @@
 						#divided between the 2 pay terms
 						$allowanceTotal = ($allowanceMobile/2) + ($allowanceEcola/2) + ($allowanceMed/2);
 			
-						#final computation for the gross pay
-						$grossPay = $accountBaseRate + $allowanceTotal;
-			
 						#compute for the net pay
 						#formula: gross pay - deductions - (absences) = netpay
 			
 						#get the attendance data for deductions:
 						#count the number of days logged in the record for the employee
-						$sql_att = "SELECT COUNT(attendanceID) AS attendanceCount
-											  FROM attendances 
-											  WHERE accountID = ? AND attendanceDate >= ? AND attendanceDate <= ?";
-						$params_att = array($accountID, $payStartingDate, $payEndingDate);
+						$sql_att = "SELECT COUNT(attendanceDate) AS 'attendanceCount'
+									FROM attendances 
+									WHERE NOT EXISTS (
+										SELECT holidayDate 
+										FROM holidays 
+										WHERE holidayDate = attendanceDate
+									)
+									AND attendanceDate >= ? AND attendanceDate <= ? AND accountID = ?";
+						$params_att = array($payStartingDate, $payEndingDate, $accountID);
 						$stmt_att = sqlsrv_query($con, $sql_att, $params_att);
+
+						if($stmt_att === false)
+						{
+							echo 'paystart: ' . $payStartingDate . '<br>' . $payEndingDate;
+							die( print_r( sqlsrv_errors(), true));
+						}
+
 					  	while($rowatt = sqlsrv_fetch_array($stmt_att))
 					    {
 					    	#this is the amount of days the employee was
@@ -222,8 +231,31 @@
 						$payInterval = $intervalStart->diff($intervalEnd);
 						$payDateCoverage = $payInterval->format('%a');
 			
-						#compute attendance deductions
-						$dedAttendance = ($payDateCoverage - $attendanceCount) * 150;
+						#changed: instead of computing attendance deductions,
+						#we compute base pay based on daily rate instead
+						#get daily rate from base rate with the formula:
+						#base monthly rate x 12 months / 313 working days in a year
+						$dailyRate = ($accountBaseRate*12)/313;
+
+						$basePay = $dailyRate * $payDateCoverage;
+						$dedAttendance = ($payDateCoverage - $attendanceCount) * $dailyRate;
+
+						#compute for the holiday bonuses (if any)
+						$sql_hb = "SELECT holidayDate, holidayRate FROM holidays 
+								   INNER JOIN attendances ON holidayDate = attendanceDate
+								   WHERE accountID = $accountID";
+						$stmt_hb = sqlsrv_query($con, $sql_hb);
+
+						while($rowhb = sqlsrv_fetch_array($stmt_hb))
+						{
+							$holidayRate = $rowhb['holidayRate'];
+
+							$hbTotal = $hbTotal + ($dailyRate*$holidayRate);
+						}
+
+						#final computation for the gross pay
+						#$grossPay = $accountBaseRate + $allowanceTotal;
+						$grossPay = $basePay + $allowanceTotal + $hbTotal;
 			
 						#compute for the total deductions
 						#by adding the values computed previously
@@ -240,13 +272,13 @@
 						$OR = "P-" . date('ymd') . "-" . $accID;
 		
 						#2. insert into the payrolls table
-						$sql_insPayroll = "INSERT INTO payrolls (pDateFiled, pDateFrom, pDateTo, pOR,  pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pNetPay, accountID)
-											VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-						$params_insPayroll = array($payStartingDate, $payEndingDate, $OR, $accountBaseRate, $allowanceEcola, $dedIT, $sssTotal, $phPremium, $hdmfAmount, $allowanceMobile, $allowanceMed, $netPay, $accountID);
+						$sql_insPayroll = "INSERT INTO payrolls (pDateFiled, pDateFrom, pDateTo, pOR,  pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pHoliday, pNetPay, pAbsence, accountID)
+											VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						$params_insPayroll = array($payStartingDate, $payEndingDate, $OR, $basePay, $allowanceEcola, $dedIT, $sssTotal, $phPremium, $hdmfAmount, $allowanceMobile, $allowanceMed, $hbTotal, $netPay, $dedAttendance, $accountID);
 						$stmt_insPayroll = sqlsrv_query($con, $sql_insPayroll, $params_insPayroll);
 		
 						#3. generate the pdf file
-						$saveName = generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $accountBaseRate, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay);
+						$saveName = generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $basePay, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay, $hbTotal);
 		
 						#4. insert the pdf file into the database
 						$receiptFile = base64_encode(openssl_encrypt($saveName . ".pdf", $method, $password, OPENSSL_RAW_DATA, $iv));
@@ -278,7 +310,10 @@
 						$OR = $saveName;
 						$caseTitle = "N/A";
 						$billType = "Payroll";
-						sendNotificationEmail($accountEmail, $OR, $accountName, $caseTitle, $billType);
+						#sendNotificationEmail($accountEmail, $OR, $accountName, $caseTitle, $billType);
+
+						#echo 'paystart: ' . $payStartingDate . '<br>' . $payEndingDate;
+						#header('location: page.php?attendanceCount=' . $attendanceCount . "ps=" . $payStartingDate . "pe=" . $payEndingDate . "accountID=" . $accountID);
 			
 						if($stmt_insPayroll === false)
 						{

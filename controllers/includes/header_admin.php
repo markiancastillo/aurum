@@ -94,11 +94,13 @@
                             <li><a href="manage_pd.php" style="display: none">Positions & Departments</a></li>
                             <li><a href="" style="display: none">Services & Expenses</a></li>
                             <li><a href="manage_sss.php">SSS Table</a></li>
-                            <li><a href="">PhilHealth Table</a></li>
+                            <li><a href="manage_philhealth.php">PhilHealth Table</a></li>
                             <li><a href="manage_hdmf.php">HDMF Contribution</a></li>
                             <li><a href="manage_wht.php">Withholding Tax Table</a></li>
                             <li><a href="manage_allowance.php">Manage Allowances</a></li>
-                            <li><a href="<?php echo app_path?>manage_holidays.php">Manage Holidays</a></li>
+                            <li><a href="<?php echo app_path?>manage_holidays.php">Manage Holidays</a>
+                            </li>
+                            <li><a href="manage_leave.php">Manage Leaves</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu dcjq-parent-li">

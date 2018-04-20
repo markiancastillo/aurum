@@ -15,6 +15,11 @@
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Upload Attendance</legend>
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <?php
+                                echo $msgDisplay;
+                            ?>
+                        </div>
                         <form class="form-horizontal" method="post" name="upload_csv" enctype="multipart/form-data">
  
                         <!-- File Button -->

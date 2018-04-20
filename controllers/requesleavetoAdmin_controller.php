@@ -32,9 +32,9 @@
 
 	$sql_listRequest = "SELECT leaveID, ltypeID, leaveFileDate, leaveFrom, leaveTo, leaveReason, leaveStatus, accountID 
 						FROM leaves 
-						WHERE leaveStatus != 'Approved' AND leaveStatus != 'Disapproved' AND accountID != $accID"; 
+						WHERE leaveStatus != 'Approved' AND leaveStatus != 'Disapproved' AND accountID != ?"; 
 	$params_listRequest = array($accID);
-	$stmt_listRequest = sqlsrv_query($con, $sql_listRequest);
+	$stmt_listRequest = sqlsrv_query($con, $sql_listRequest, $params_listRequest);
 
 	$listRequest = "";
 	while($row = sqlsrv_fetch_array($stmt_listRequest))

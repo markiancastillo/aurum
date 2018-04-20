@@ -17,7 +17,7 @@
 					INNER JOIN servicetypes t ON s.stypeID = t.stypeID 
 					INNER JOIN accounts a ON s.accountID = a.accountID 
 					INNER JOIN cases c ON s.caseID = c.caseID 
-					WHERE s.sfStatus != 'Approved' AND s.sfStatus != 'Disapproved' AND s.accountID != ? 
+					WHERE s.sfStatus != 'Approved' AND s.sfStatus != 'Disapproved' AND s.sfStatus != 'Billed' AND s.accountID != ? 
 					ORDER BY s.sfDate ASC";
 	$params_getList = array($accID);
 	$stmt_getList = sqlsrv_query($con, $sql_getList, $params_getList);

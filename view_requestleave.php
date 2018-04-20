@@ -8,16 +8,17 @@
 </head>
 <body>
 <section id="main-content">
-	<section class="wrapper">  
-		<div class="row">
+	<section class="wrapper">
+		<div class="form-panel">
+			<div class="container">
+				<div class="row">
 			<h1 class="text-center">Request Leave #<?php echo $_REQUEST['id']; ?> Details</h1>
-			<hr />
-			<div class="col-lg-12">
+			<br />
+			<div class="col-lg-5 col-lg-offset-1">
 				<form class="form-horizontal">
 					<div class="form-group">	
 						<label class="control-label col-lg-4">Leave File Date</label>
 						<div class="col-lg-8">
-							<input type="text" id="holidayName" name="holidayName" class="form-control" required="true" />
 							<?php echo $leaveFileDate; ?>
 						</div>
 					</div>
@@ -28,19 +29,25 @@
 						</div>
 					</div>
 					<div class="form-group">	
-						<label class="control-label col-lg-4">leaveFrom</label>
+						<label class="control-label col-lg-4">Duration</label>
 						<div class="col-lg-8">
-							<p class="form-control-static"><?php echo $leaveFrom; ?></p>
+							<p class="form-control-static"><?php echo $leaveFrom . ' to ' . $leaveTo; ?></p>
 						</div>
 					</div>
 					<div class="form-group">	
-						<label class="control-label col-lg-4">leaveTo</label>
+						<label class="control-label col-lg-4">Type of Leave</label>
 						<div class="col-lg-8">
-							<p class="form-control-static"><?php echo $leaveTo; ?></p>
+							<p class="form-control-static"><?php echo $ltypeName; ?></p>
 						</div>
 					</div>
 					<div class="form-group">	
-						<label class="control-label col-lg-4">leaveReason</label>
+						<label class="control-label col-lg-4">Remaining Leaves</label>
+						<div class="col-lg-8">
+							<p class="form-control-static"><?php echo $lcDisplay; ?></p>
+						</div>
+					</div>
+					<div class="form-group">	
+						<label class="control-label col-lg-4">Reason</label>
 						<div class="col-lg-8">
 							<p class="form-control-static"><?php echo $leaveReason; ?></p>
 						</div>

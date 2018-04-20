@@ -17,7 +17,7 @@
 					INNER JOIN accounts a ON e.accountID = a.accountID 
 					INNER JOIN cases c ON e.caseID = c.caseID 
 					INNER JOIN expensetypes t ON e.etypeID = t.etypeID
-					WHERE e.expenseStatus != 'Approved' AND e.expenseStatus != 'Disapproved' AND e.accountID != ?
+					WHERE e.expenseStatus != 'Approved' AND e.expenseStatus != 'Disapproved' AND e.expenseStatus != 'Billed' AND e.accountID != ?
 					ORDER BY expenseDate ASC";
 	$params_getList = array($accID);
 	$stmt_getList = sqlsrv_query($con, $sql_getList, $params_getList);

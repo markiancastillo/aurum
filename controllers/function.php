@@ -43,6 +43,14 @@
 		}
 	}
 
+	#empty the tmp table for attendance uploads
+	function deleteTmp($con)
+	{
+		#empty contents of the tmp table
+		$sql_empty = "DELETE FROM temp_att";
+		$stmt_empty = sqlsrv_query($con, $sql_empty);
+	}
+
 	#determine if the account has administrative access
 	function determineAccess()
 	{
@@ -601,10 +609,10 @@
 		}
 	}
 
-	function generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $accountBaseRate, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay)
+	function generatePayrollPDF($accID, $accountName, $payStartingDate, $payEndingDate, $basePay, $departmentName, $allowanceMobile, $allowanceEcola, $allowanceMed, $grossPay, $sssTotal, $phPremium, $hdmfAmount, $dedIT, $dedAttendance, $netPay, $hbTotal)
 	{
 		#format the inputs
-		$dispBaseRate = number_format($accountBaseRate, 2, '.', ',');
+		$dispBaseRate = number_format($basePay, 2, '.', ',');
 		$dispMobile = number_format($allowanceMobile, 2, '.', ',');
 		$dispEcola = number_format($allowanceEcola, 2, '.', ',');
 		$dispMed = number_format($allowanceMed, 2, '.', ',');
@@ -615,6 +623,7 @@
 		$dispIT = number_format($dedIT, 2, '.', ',');
 		$dispAtt = number_format($dedAttendance, 2, '.', ',');
 		$dispNet = number_format($netPay, 2, '.', ',');
+		$dispHb = number_format($hbTotal, 2, '.', ',');
 
 		$pdf = new FPDF('P', 'mm', 'Letter');
 		$pdf->AddPage();
@@ -692,6 +701,14 @@
 		$pdf->Cell(10, 5, '', 'LTB', 0, 'L');
 		$pdf->Cell(25, 5, '', 'TRB', 1, 'R');
 
+		#new row for holiday bonus
+		$pdf->Cell(40, 5, '', 1, 0, 'L');
+		$pdf->Cell(85.9, 5, 'Holiday Bonus/es', 1, 0, 'L');
+		$pdf->Cell(10, 5, 'Php', 'LTB', 0, 'L');
+		$pdf->Cell(25, 5, $dispHb, 'TRB', 0, 'R');
+		$pdf->Cell(10, 5, '', 'LTB', 0, 'L');
+		$pdf->Cell(25, 5, '', 'TRB', 1, 'R');
+
 		#row 6 -- gross pay
 		$pdf->Cell(40, 5, 'Gross Pay', 1, 0, 'L');
 		$pdf->Cell(85.9, 5, '', 1, 0, 'L');
@@ -765,11 +782,13 @@
 		return $saveName;
 	}
 
-	function saveAsPDF($pDateFiled, $pOR, $accountName, $departmentName, $pDateFrom, $pDateTo, $pBasicPay, $pCPAllowance, $pEcola, $pMedAllowance, $grossPay, $pSSS, $pMedical, $pHDMF, $pWTax, $calcAtt, $pNetPay)
+	function saveAsPDF($pDateFiled, $pOR, $accountName, $departmentName, $pDateFrom, $pDateTo, $pBasicPay, $pCPAllowance, $pEcola, $pMedAllowance, $grossPay, $pSSS, $pMedical, $pHDMF, $pWTax, $calcAtt, $pNetPay, $pHoliday, $pAbsence)
 	{
 		$hMob = number_format(($pCPAllowance/2),2);
 		$hEco = number_format(($pEcola/2), 2);
 		$hMed = number_format(($pMedAllowance/2),2);
+		$hHol = number_format($pHoliday, 2);
+		$hAbs = number_format($pAbsence, 2);
 		
 		$pAttendance = number_format($calcAtt, 2);
 
@@ -845,6 +864,14 @@
 		$pdf->Cell(10, 5, '', 'LTB', 0, 'L');
 		$pdf->Cell(25, 5, '', 'TRB', 1, 'R');
 
+		#new row for holiday bonus
+		$pdf->Cell(40, 5, '', 1, 0, 'L');
+		$pdf->Cell(85.9, 5, 'Holiday Bonus/es', 1, 0, 'L');
+		$pdf->Cell(10, 5, 'Php', 'LTB', 0, 'L');
+		$pdf->Cell(25, 5, $hHol, 'TRB', 0, 'R');
+		$pdf->Cell(10, 5, '', 'LTB', 0, 'L');
+		$pdf->Cell(25, 5, '', 'TRB', 1, 'R');
+
 		#row 6 -- gross pay
 		$pdf->Cell(40, 5, 'Gross Pay', 1, 0, 'L');
 		$pdf->Cell(85.9, 5, '', 1, 0, 'L');
@@ -898,7 +925,7 @@
 		$pdf->Cell(40, 5, '', 1, 0, 'L');
 		$pdf->Cell(85.9, 5, 'Absences', 1, 0, 'L');
 		$pdf->Cell(10, 5, 'Php', 'LTB', 0, 'L');
-		$pdf->Cell(25, 5, $pAttendance, 'TRB', 0, 'R');
+		$pdf->Cell(25, 5, $hAbs, 'TRB', 0, 'R');
 		$pdf->Cell(10, 5, '', 'LTB', 0, 'L');
 		$pdf->Cell(25, 5, '', 'TRB', 1, 'R');
 

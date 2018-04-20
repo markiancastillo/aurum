@@ -24,7 +24,7 @@
 	else 
 	{
 
-		$sql_det = "SELECT pID, pDateFiled, pDateFrom, pDateTo, pOR, pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pNetPay FROM payrolls
+		$sql_det = "SELECT pID, pDateFiled, pDateFrom, pDateTo, pOR, pBasicPay, pEcola, pWTax, pSSS, pMedical, pHDMF, pCPAllowance, pMedAllowance, pHoliday, pAbsence, pNetPay FROM payrolls
 					WHERE accountID = ? AND pID = ?";
 		$params_det = array($accID, $reqID);
 		$stmt_det = sqlsrv_query($con, $sql_det, $params_det);
@@ -42,11 +42,13 @@
 			$pMedical = $rowd['pMedical'];
 			$pHDMF = $rowd['pHDMF'];
 			$pCPAllowance = $rowd['pCPAllowance'];
+			$pHoliday = $rowd['pHoliday'];
 			$pMedAllowance = $rowd['pMedAllowance'];
 			$pNetPay = $rowd['pNetPay'];
+			$pAbsence = $rowd['pAbsence'];
 
-			$grossPay = $pBasicPay + ($pCPAllowance/2) + ($pEcola/2) + ($pMedAllowance/2);
-			$calcAtt = ($grossPay - ($pSSS + $pMedical + $pHDMF + $pWTax)) - $pNetPay;
+			$grossPay = $pBasicPay + ($pCPAllowance/2) + ($pEcola/2) + ($pMedAllowance/2) + $pHoliday;
+			#$calcAtt = ($grossPay - ($pSSS + $pMedical + $pHDMF + $pWTax)) - $pNetPay;
 		}
 
 		if(isset($_POST['btnSave']))
@@ -69,7 +71,7 @@
 				$departmentName = $rowa['departmentName'];
 			}
 
-			saveAsPDF($pDateFiled, $pOR, $accountName, $departmentName, $pDateFrom, $pDateTo, $pBasicPay, $pCPAllowance, $pEcola, $pMedAllowance, $grossPay, $pSSS, $pMedical, $pHDMF, $pWTax, $calcAtt, $pNetPay);
+			saveAsPDF($pDateFiled, $pOR, $accountName, $departmentName, $pDateFrom, $pDateTo, $pBasicPay, $pCPAllowance, $pEcola, $pMedAllowance, $grossPay, $pSSS, $pMedical, $pHDMF, $pWTax, $calcAtt, $pNetPay, $pHoliday, $pAbsence);
 		}
 	}
 ?>
