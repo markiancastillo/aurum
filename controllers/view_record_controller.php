@@ -36,8 +36,8 @@
 				$stypeID = $row['stypeID'];
 				$sDate = $row['sDate']->format('Y-m-d');
 				$eDate = $row['eDate']->format('Y-m-d');
-				$sTime = $row['sTime']->format('hh:12');
-				$eTime = $row['eTime']->format('hh:12');
+				$sTime = $row['sTime']->format('h:m');
+				$eTime = $row['eTime']->format('h:m');
 			}
 	
 			$msgDisplay = "";

@@ -44,7 +44,7 @@
 								<div class="form-group">				
 									<label class="control-label col-lg-3">End Time</label>
 									<div class="col-lg-8">
-										<input type="time" id="eTime" name="eTime" class="form-control" value="<?php echo $sTime; ?>" placeholder="optional">
+										<input type="time" id="eTime" name="eTime" class="form-control" value="<?php echo $eTime; ?>" placeholder="optional">
 									</div>
 								</div>
 								<div class="form-group">
