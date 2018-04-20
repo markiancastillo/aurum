@@ -30,7 +30,7 @@
 			$params_details = array($reqID);
 			$stmt_details = sqlsrv_query($con, $sql_details, $params_details);
 	
-			$list_records = "";
+				$list_records = "";
 			while($row = sqlsrv_fetch_array($stmt_details))
 			{
 				$stypeID = $row['stypeID'];
@@ -43,14 +43,13 @@
 			$msgDisplay = "";
 			if(isset($_POST['btnUpdate']))
 			{
-				$stypeID = $_POST['stypeID'];
 				$sDate = $_POST['sDate'];
 				$eDate = $_POST['eDate'];
 				$sTime = $_POST['sTime'];
 				$eTime = $_POST['eTime'];
 				
-				$sql_update = "UPDATE monitor SET stID = ?, sDate = ?, eDate = ?, sTime = ?, eTime = ?  WHERE monitorID = ?";
-				$params_update = array($stID, $sDate, $eDate, $sTime,$eTime, $reqID);
+				$sql_update = "UPDATE monitor SET sDate = ?, eDate = ?, sTime = ?, eTime = ?  WHERE monitorID = ?";
+				$params_update = array($sDate, $eDate, $sTime,$eTime, $reqID);
 				$stmt_update = sqlsrv_query($con, $sql_update, $params_update);
 	
 				if($stmt_update === false)
