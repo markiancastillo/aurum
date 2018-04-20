@@ -1,5 +1,5 @@
 <?php
-	include('controllers/view_attendance_controller.php');
+	include('controllers/view_record_controller.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,32 +18,38 @@
 							
 							<form class="form-horizontal col-lg-8 col-lg-offset-2" method="POST" enctype="multipart/form-data">
 								<div class="form-group">				
-									<label class="control-label col-lg-3">Employee ID</label>
+									<label class="control-label col-lg-3">Service Type ID</label>
 									<div class="col-lg-8">
-										<input type="text" id="aID" name="aID" class="form-control" disabled= "true" value="<?php echo $accountID; ?>">
+										<input type="text" id="stID" name="stID" class="form-control" disabled= "true" value="<?php echo $stypeID; ?>">
 									</div>
 								</div>
 								<div class="form-group">				
-									<label class="control-label col-lg-3">Time in</label>
+									<label class="control-label col-lg-3">Start Date</label>
 									<div class="col-lg-8">
-										<input type="time" id="timeIn" name="timeIn" class="form-control" value="<?php echo $attendanceIn; ?>" placeholder="optional">
+										<input type="date" id="sDate" name="sDate" class="form-control" value="<?php echo $sDate; ?>" placeholder="optional">
 									</div>
 								</div>
 								<div class="form-group">				
-									<label class="control-label col-lg-3">Time out</label>
+									<label class="control-label col-lg-3">End Date</label>
 									<div class="col-lg-8">
-										<input type="time" id="timeOut" name="timeOut" class="form-control" value="<?php echo $attendanceOut; ?>">
+										<input type="date" id="eDate" name="eDate" class="form-control" value="<?php echo $eDate; ?>" placeholder="optional">
 									</div>
 								</div>
 								<div class="form-group">				
-									<label class="control-label col-lg-3">Date</label>
+									<label class="control-label col-lg-3">Start Time</label>
 									<div class="col-lg-8">
-										<input type="date" id="attDate" name="attDate" class="form-control" value="<?php echo $attendanceDate; ?>" placeholder="optional">
+										<input type="time" id="sTime" name="sTime" class="form-control" value="<?php echo $sTime; ?>" placeholder="optional">
+									</div>
+								</div>
+								<div class="form-group">				
+									<label class="control-label col-lg-3">End Time</label>
+									<div class="col-lg-8">
+										<input type="time" id="eTime" name="eTime" class="form-control" value="<?php echo $sTime; ?>" placeholder="optional">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-lg-3">
-										<a href="list_attendance.php" class="btn btn-default btn-block">
+										<a href="list_record.php" class="btn btn-default btn-block">
 											<span class="glyphicon glyphicon-chevron-left"></span>
 											 Back
 										</a>
